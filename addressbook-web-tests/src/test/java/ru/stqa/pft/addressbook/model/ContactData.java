@@ -1,77 +1,67 @@
 package ru.stqa.pft.addressbook.model;
 
 public class ContactData {
-    private int id;
-    private final String firstname;
-    private final String middlename;
-    private final String lastname;
-    private final String address;
-    private final String homephone;
-    private final String mobilephone;
-    private final String workphone;
-    private final String mail;
+    private int id = Integer.MAX_VALUE;
+    private String name;
+    private String surname;
+    private String address;
+    private String mobilephone;
+    private String mail;
     private String group;
 
     public int getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public ContactData withId(int id) {
         this.id = id;
+        return this;
     }
 
-    public ContactData(int id, String firstname, String middlename, String lastname, String address, String homephone, String mobilephone, String workphone, String mail, String group) {
-        this.id = id;
-        this.firstname = firstname;
-        this.middlename = middlename;
-        this.lastname = lastname;
-        this.address = address;
-        this.homephone = homephone;
-        this.mobilephone = mobilephone;
-        this.workphone = workphone;
-        this.mail = mail;
-        this.group = group;
+    public ContactData withName(String name) {
+        this.name = name;
+        return this;
     }
 
-    public ContactData(String firstname, String middlename, String lastname, String address, String homephone, String mobilephone, String workphone, String mail, String group) {
-        this.id = Integer.MAX_VALUE;
-        this.firstname = firstname;
-        this.middlename = middlename;
-        this.lastname = lastname;
+    public ContactData withSurname(String surname) {
+        this.surname = surname;
+        return this;
+    }
+
+    public ContactData withAddress(String address) {
         this.address = address;
-        this.homephone = homephone;
+        return this;
+    }
+
+    public ContactData withMobilephone(String mobilephone) {
         this.mobilephone = mobilephone;
-        this.workphone = workphone;
+        return this;
+    }
+
+    public ContactData withMail(String mail) {
         this.mail = mail;
+        return this;
+    }
+
+    public ContactData withGroup(String group) {
         this.group = group;
+        return this;
     }
 
     public String getFirstname() {
-        return firstname;
-    }
-
-    public String getMiddlename() {
-        return middlename;
+        return name;
     }
 
     public String getLastname() {
-        return lastname;
+        return surname;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public String getHomephone() {
-        return homephone;
-    }
-
     public String getMobilephone() {
         return mobilephone;
-    }
-
-    public String getWorkphone() {
-        return workphone;
     }
 
     public String getMail() {
@@ -85,9 +75,9 @@ public class ContactData {
     @Override
     public String toString() {
         return "ContactData{" +
-                "id='" + id + '\'' +
-                ", firstname='" + firstname + '\'' +
-                ", lastname='" + lastname + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
                 '}';
     }
 
@@ -98,15 +88,16 @@ public class ContactData {
 
         ContactData that = (ContactData) o;
 
-        if (firstname != null ? !firstname.equals(that.firstname) : that.firstname != null) return false;
-        return lastname != null ? lastname.equals(that.lastname) : that.lastname == null;
+        if (id != that.id) return false;
+        if (name != null ? !name.equals(that.name) : that.name != null) return false;
+        return surname != null ? surname.equals(that.surname) : that.surname == null;
     }
 
     @Override
     public int hashCode() {
-        int result = firstname != null ? firstname.hashCode() : 0;
-        result = 31 * result + (lastname != null ? lastname.hashCode() : 0);
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
+        result = 31 * result + (surname != null ? surname.hashCode() : 0);
         return result;
     }
-
 }
