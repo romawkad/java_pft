@@ -5,9 +5,16 @@ public class ContactData {
     private String name;
     private String surname;
     private String address;
-    private String mobilephone;
+    private String homePhone;
+    private String mobilePhone;
+    private String workPhone;
     private String mail;
+    private String mail2;
+    private String mail3;
     private String group;
+    private String allPhones;
+    private String allMails;
+    private String allAddresses;
 
     public int getId() {
         return id;
@@ -33,8 +40,18 @@ public class ContactData {
         return this;
     }
 
-    public ContactData withMobilephone(String mobilephone) {
-        this.mobilephone = mobilephone;
+    public ContactData withHomePhone(String homePhone) {
+        this.homePhone = homePhone;
+        return this;
+    }
+
+    public ContactData withMobilePhone(String mobilephone) {
+        this.mobilePhone = mobilephone;
+        return this;
+    }
+
+    public ContactData withWorkPhone(String workPhone) {
+        this.workPhone = workPhone;
         return this;
     }
 
@@ -43,8 +60,33 @@ public class ContactData {
         return this;
     }
 
+    public ContactData withMail2(String mail2) {
+        this.mail2 = mail2;
+        return this;
+    }
+
+    public ContactData withMail3(String mail3) {
+        this.mail3 = mail3;
+        return this;
+    }
+
     public ContactData withGroup(String group) {
         this.group = group;
+        return this;
+    }
+
+    public ContactData withAllPhones(String allPhones) {
+        this.allPhones = allPhones;
+        return this;
+    }
+
+    public ContactData withAllMails(String allMails) {
+        this.allMails = allMails;
+        return this;
+    }
+
+    public ContactData withAllAddresses(String allAddresses) {
+        this.allAddresses = allAddresses;
         return this;
     }
 
@@ -60,16 +102,44 @@ public class ContactData {
         return address;
     }
 
-    public String getMobilephone() {
-        return mobilephone;
+    public String getMobilePhone() {
+        return mobilePhone;
+    }
+
+    public String getHomePhone() {
+        return homePhone;
+    }
+
+    public String getWorkPhone() {
+        return workPhone;
     }
 
     public String getMail() {
         return mail;
     }
 
+    public String getMail2() {
+        return mail2;
+    }
+
+    public String getMail3() {
+        return mail3;
+    }
+
     public String getGroup() {
         return group;
+    }
+
+    public String getAllPhones() {
+        return allPhones;
+    }
+
+    public String getAllMails() {
+        return allMails;
+    }
+
+    public String getAllAddresses() {
+        return allAddresses;
     }
 
     @Override
