@@ -1,0 +1,52 @@
+<list>
+  <contact>
+    <name>name 0</name>
+    <surname>surname 0</surname>
+    <address>address 0</address>
+  </contact>
+  <contact>
+    <name>name 1</name>
+    <surname>surname 1</surname>
+    <address>address 1</address>
+  </contact>
+  <contact>
+    <name>name 2</name>
+    <surname>surname 2</surname>
+    <address>address 2</address>
+  </contact>
+  <contact>
+    <name>name 3</name>
+    <surname>surname 3</surname>
+    <address>address 3</address>
+  </contact>
+  <contact>
+    <name>name 4</name>
+    <surname>surname 4</surname>
+    <address>address 4</address>
+  </contact>
+  <contact>
+    <name>name 5</name>
+    <surname>surname 5</surname>
+    <address>address 5</address>
+  </contact>
+  <contact>
+    <name>name 6</name>
+    <surname>surname 6</surname>
+    <address>address 6</address>
+  </contact>
+  <contact>
+    <name>name 7</name>
+    <surname>surname 7</surname>
+    <address>address 7</address>
+  </contact>
+  <contact>
+    <name>name 8</name>
+    <surname>surname 8</surname>
+    <address>address 8</address>
+  </contact>
+  <contact>
+    <name>name 9</name>
+    <surname>surname 9</surname>
+    <address>address 9</address>
+  </contact>
+</list>
