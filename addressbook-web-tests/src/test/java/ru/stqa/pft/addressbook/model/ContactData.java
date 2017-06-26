@@ -2,30 +2,58 @@ package ru.stqa.pft.addressbook.model;
 import com.google.gson.annotations.Expose;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.File;
 
 @XStreamAlias("contact")
+@Entity
+@Table(name = "addressbook")
 public class ContactData {
     @XStreamOmitField
+    @Id
+    @Column(name = "id")
     private int id = Integer.MAX_VALUE;
     @Expose
+    @Column(name = "firstname")
     private String name;
     @Expose
+    @Column(name = "lastname")
     private String surname;
     @Expose
+    @Column(name = "address")
+    @Type(type = "text")
     private String address;
+    @Column(name = "home")
+    @Type(type = "text")
     private String homePhone;
+    @Column(name = "mobile")
+    @Type(type = "text")
     private String mobilePhone;
+    @Column(name = "work")
+    @Type(type = "text")
     private String workPhone;
+    @Column(name = "email")
+    @Type(type = "text")
     private String mail;
+    @Column(name = "email2")
+    @Type(type = "text")
     private String mail2;
+    @Column(name = "email3")
+    @Type(type = "text")
     private String mail3;
+    @Transient
     private String group;
+    @Transient
     private String allPhones;
+    @Transient
     private String allMails;
+    @Transient
     private String allAddresses;
-    private File photo;
+    @Column(name = "photo")
+    @Type(type = "text")
+    private String photo;
 
     public int getId() {
         return id;
@@ -102,7 +130,7 @@ public class ContactData {
     }
 
     public ContactData withPhoto(File photo) {
-        this.photo = photo;
+        this.photo = photo.getPath();
         return this;
     }
 
@@ -159,7 +187,11 @@ public class ContactData {
     }
 
     public File getPhoto() {
-        return photo;
+        if (photo == null) {
+            return null;
+        }else {
+            return new File(photo);
+        }
     }
 
     @Override
@@ -168,6 +200,7 @@ public class ContactData {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
+                ", address='" + address + '\'' +
                 '}';
     }
 
@@ -180,7 +213,8 @@ public class ContactData {
 
         if (id != that.id) return false;
         if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        return surname != null ? surname.equals(that.surname) : that.surname == null;
+        if (surname != null ? !surname.equals(that.surname) : that.surname != null) return false;
+        return address != null ? address.equals(that.address) : that.address == null;
     }
 
     @Override
@@ -188,6 +222,7 @@ public class ContactData {
         int result = id;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (surname != null ? surname.hashCode() : 0);
+        result = 31 * result + (address != null ? address.hashCode() : 0);
         return result;
     }
 }
