@@ -3,7 +3,6 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
@@ -33,9 +32,9 @@ public class ContactHelper extends HelperBase {
         type(By.name("email"), contactData.getMail());
         attach(By.name("photo"), contactData.getPhoto());
         if (creation) {
-            if (contactData.getGroup() != null) {
-                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-            }
+            //if (contactData.getGroup() != null) {
+                //new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
+            //}
 
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
@@ -117,6 +116,8 @@ public class ContactHelper extends HelperBase {
             String allMails = element.findElement(By.xpath(".//td[5]")).getText();
             String allAddresses = element.findElement(By.xpath(".//td[4]")).getText();
             //String[] phones = element.findElement(By.xpath(".//td[6]")).getText().split("\n");
+            //contactCache.add(new ContactData().withId(id).withName(firstname).withSurname(lastname)
+                    //.withAllAddresses(allAddresses).withAllMails(allMails).withAllPhones(allPhones));
             contactCache.add(new ContactData().withId(id).withName(firstname).withSurname(lastname)
                     .withAllAddresses(allAddresses).withAllMails(allMails).withAllPhones(allPhones));
         }

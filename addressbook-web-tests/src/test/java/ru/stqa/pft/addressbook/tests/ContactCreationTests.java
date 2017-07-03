@@ -67,7 +67,7 @@ public class ContactCreationTests extends TestBase {
     public void testBadContactCreation() {
         app.goTo().homePage();
         Contacts before = app.db().contacts();
-        ContactData contact = new ContactData().withName("Катя").withSurname("Петровна").withAddress("Адрес1").withGroup("test1").withMail("pupkin@mail.ru").withMobilePhone("+79153467896");    //.withLastname("Петров").withAddress("Адрес1").withMobilePhone("+7111111111").withMail("petrov@mail.ru");
+        ContactData contact = new ContactData().withName("Катя").withSurname("Петровна").withAddress("Адрес1").withMail("pupkin@mail.ru").withMobilePhone("+79153467896");    //.withLastname("Петров").withAddress("Адрес1").withMobilePhone("+7111111111").withMail("petrov@mail.ru");
         app.contact().create(contact);
         Contacts after = app.db().contacts();
         assertThat(app.contact().count(), equalTo(before.size()));

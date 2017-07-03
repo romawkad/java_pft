@@ -6,6 +6,8 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.File;
+import java.util.HashSet;
+import java.util.Set;
 
 @XStreamAlias("contact")
 @Entity
@@ -15,45 +17,58 @@ public class ContactData {
     @Id
     @Column(name = "id")
     private int id = Integer.MAX_VALUE;
+
     @Expose
     @Column(name = "firstname")
     private String name;
+
     @Expose
     @Column(name = "lastname")
     private String surname;
+
     @Expose
     @Column(name = "address")
     @Type(type = "text")
     private String address;
+
     @Column(name = "home")
     @Type(type = "text")
     private String homePhone;
+
     @Column(name = "mobile")
     @Type(type = "text")
     private String mobilePhone;
+
     @Column(name = "work")
     @Type(type = "text")
     private String workPhone;
+
     @Column(name = "email")
     @Type(type = "text")
     private String mail;
+
     @Column(name = "email2")
     @Type(type = "text")
     private String mail2;
+
     @Column(name = "email3")
     @Type(type = "text")
     private String mail3;
-    @Transient
-    private String group;
+
     @Transient
     private String allPhones;
     @Transient
     private String allMails;
     @Transient
     private String allAddresses;
+
     @Column(name = "photo")
     @Type(type = "text")
     private String photo;
+
+    @ManyToMany
+    @JoinTable(name = "address_in_groups", joinColumns = @JoinColumn(name = "id"), inverseJoinColumns = @JoinColumn(name = "group_id"))
+    private Set<GroupData> groups = new HashSet<GroupData>();
 
     public int getId() {
         return id;
@@ -106,11 +121,6 @@ public class ContactData {
 
     public ContactData withMail3(String mail3) {
         this.mail3 = mail3;
-        return this;
-    }
-
-    public ContactData withGroup(String group) {
-        this.group = group;
         return this;
     }
 
@@ -170,10 +180,6 @@ public class ContactData {
         return mail3;
     }
 
-    public String getGroup() {
-        return group;
-    }
-
     public String getAllPhones() {
         return allPhones;
     }
@@ -192,6 +198,10 @@ public class ContactData {
         }else {
             return new File(photo);
         }
+    }
+
+    public Groups getGroups() {
+        return new Groups(groups);
     }
 
     @Override
