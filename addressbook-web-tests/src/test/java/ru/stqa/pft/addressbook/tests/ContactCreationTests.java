@@ -72,6 +72,7 @@ public class ContactCreationTests extends TestBase {
         Contacts after = app.db().contacts();
         assertThat(app.contact().count(), equalTo(before.size()));
         assertThat(after, equalTo(before));
+        verifyContactListInUI();
     }
 
 }
