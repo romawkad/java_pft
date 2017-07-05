@@ -3,9 +3,11 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.Assert;
 import ru.stqa.pft.addressbook.model.ContactData;
 import ru.stqa.pft.addressbook.model.Contacts;
+import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.List;
 
@@ -32,9 +34,10 @@ public class ContactHelper extends HelperBase {
         type(By.name("email"), contactData.getMail());
         attach(By.name("photo"), contactData.getPhoto());
         if (creation) {
-            //if (contactData.getGroup() != null) {
-                //new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroup());
-            //}
+            if (contactData.getGroups().size() > 0) {
+                Assert.assertTrue(contactData.getGroups().size() == 1);
+                new Select(wd.findElement(By.name("new_group"))).selectByVisibleText(contactData.getGroups().iterator().next().getName());
+            }
 
         } else {
             Assert.assertFalse(isElementPresent(By.name("new_group")));
@@ -81,6 +84,41 @@ public class ContactHelper extends HelperBase {
         submitContactModification();
         contactCache = null;
         returnToHomePage();
+    }
+
+    public void addToGroup(ContactData contact, GroupData group) {
+        selectContactById(contact.getId());
+        selectGroupById(group.getId());
+        submitSelectedGroup();
+        contactCache = null;
+        returnToHomePage();
+        selectGroupWithContactsByValue(String.valueOf(group.getId()));
+    }
+
+    public void removeFromGroup(ContactData contact, GroupData group) {
+        selectGroupWithContactsByValue(String.valueOf(group.getId()));
+        selectContactById(contact.getId());
+        submitRemoveFromGroup();
+        contactCache = null;
+        returnToHomePage();
+        selectGroupWithContactsByValue("");
+    }
+
+    private void submitRemoveFromGroup() {
+        wd.findElement(By.name("remove")).click();
+    }
+
+    private void selectGroupWithContactsByValue(String value) {
+        new Select(wd.findElement(By.name("group"))).selectByValue(value);
+    }
+
+    private void submitSelectedGroup() {
+        wd.findElement(By.name("add")).click();
+
+    }
+
+    private void selectGroupById(int id) {
+        new Select(wd.findElement(By.name("to_group"))).selectByValue(String.valueOf(id));
     }
 
     public void delete(ContactData contact) {
@@ -142,4 +180,6 @@ public class ContactHelper extends HelperBase {
                 .withMail(email).withMail2(email2).withMail3(email3).withAllAddresses(address);
 
     }
+
+
 }
