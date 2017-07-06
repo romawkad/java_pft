@@ -30,11 +30,11 @@ public class ContactAddToGroupTests extends TestBase {
 
     @Test
     public void testAddContactToGroup() {
-        Contacts before = app.db().contacts();
+        Contacts contacts = app.db().contacts();
         ContactData modifiedContact = new ContactData();
         GroupData group = new GroupData();
-        if (before.stream().anyMatch((c) -> c.getGroups().size() < app.db().groups().size())) {
-            modifiedContact = before.stream().filter((c) -> c.getGroups().size() < app.db().groups().size()).iterator().next();
+        if (contacts.stream().anyMatch((c) -> c.getGroups().size() < app.db().groups().size())) {
+            modifiedContact = contacts.stream().filter((c) -> c.getGroups().size() < app.db().groups().size()).iterator().next();
             Groups contactGroups = modifiedContact.getGroups();
             if (modifiedContact.getGroups().size() == 0) {
                 group = app.db().groups().iterator().next();
@@ -45,18 +45,18 @@ public class ContactAddToGroupTests extends TestBase {
                 }
                 group = groups.iterator().next();
             }
-        } else if (before.stream().anyMatch((c) -> c.getGroups().size() == app.db().groups().size())) {
-            modifiedContact = before.stream().filter((c) -> c.getGroups().size() == app.db().groups().size()).iterator().next();
+        } else if (contacts.stream().anyMatch((c) -> c.getGroups().size() == app.db().groups().size())) {
+            modifiedContact = contacts.stream().filter((c) -> c.getGroups().size() == app.db().groups().size()).iterator().next();
             group = modifiedContact.getGroups().iterator().next();
             app.contact().removeFromGroup(modifiedContact, group);
 
         }
+        Groups before = modifiedContact.getGroups();
         app.goTo().homePage();
         app.contact().addToGroup(modifiedContact, group);
-        ContactData contact = modifiedContact.inGroup(group);
-        assertEquals(app.contact().count(), before.size());
-        Contacts after = app.db().contacts();
-        assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
+        Groups after = app.db().contactById(modifiedContact.getId()).getGroups();
+        assertEquals(after.size(), before.size() + 1);
+        assertThat(after, equalTo(before.withAdded(group)));
         }
     }
 

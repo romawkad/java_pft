@@ -32,26 +32,22 @@ public class ContactRemoveFromGroupTests extends TestBase {
 
     @Test
     public void testRemoveContactFromGroup() {
-        Contacts before = app.db().contacts();
+        Contacts contacts = app.db().contacts();
         ContactData modifiedContact;
         GroupData group;
-        if (before.stream().anyMatch((c) -> c.getGroups().size() > 0)) {
-            modifiedContact = before.stream().filter((c) -> c.getGroups().size() > 0).iterator().next();
+        if (contacts.stream().anyMatch((c) -> c.getGroups().size() > 0)) {
+            modifiedContact = contacts.stream().filter((c) -> c.getGroups().size() > 0).iterator().next();
             group = modifiedContact.getGroups().iterator().next();
         } else {
-            modifiedContact = before.iterator().next();
-            Groups groups = app.db().groups();
-            group = groups.iterator().next();
+            modifiedContact = contacts.iterator().next();
+            group = app.db().groups().iterator().next();
             app.contact().addToGroup(modifiedContact, group);
         }
+        Groups before = modifiedContact.getGroups();
         app.goTo().homePage();
-        ContactData contact = modifiedContact.withoutGroup(group);
         app.contact().removeFromGroup(modifiedContact, group);
-        assertEquals(app.contact().count(), before.size());
-        Contacts after = app.db().contacts();
-        assertThat(after, equalTo(before.without(modifiedContact).withAdded(contact)));
-
-
-
+        Groups after = app.db().contactById(modifiedContact.getId()).getGroups();
+        assertEquals(after.size(), before.size() - 1);
+        assertThat(after, equalTo(before.without(group)));
     }
 }
