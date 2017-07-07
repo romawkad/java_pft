@@ -65,23 +65,22 @@ public class JamesHelper {
             out = new PrintStream( telnet.getOutputStream() );
 
         } catch (Exception e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
 
-        // Don't know why it doesn't allow login at the first attempt
+
         readUntil("Login id:");
         write("");
         readUntil("Password:");
         write("");
 
-        // Second login attempt, must be successful
+
         readUntil("Login id:");
         write(login);
         readUntil("Password:");
         write(password);
 
-        // Read welcome message
+
         readUntil("Welcome "+login+". HELP for a list of commands");
     }
 
