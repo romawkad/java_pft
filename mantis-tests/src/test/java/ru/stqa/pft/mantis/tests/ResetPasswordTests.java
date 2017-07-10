@@ -29,7 +29,7 @@ public class ResetPasswordTests extends TestBase {
         app.user().loginAdmin();
         app.goTo().accountPage();
         app.goTo().manageUserPage();
-        UserData user = app.db().users().stream().filter((u) -> u.getUsername() != "administrator").iterator().next();
+        UserData user = app.db().users().stream().filter((u) -> !u.getUsername().equals("administrator")).iterator().next();
         app.user().selectById(user.getId());
         app.user().resetPassword();
         List<MailMessage> mailMessages = app.mail().waitForMail(2, 20000);
