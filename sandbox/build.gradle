@@ -7,3 +7,7 @@ repositories{
 dependencies{
     compile 'org.testng:testng:6.11'
 }
+
+test {
+    useTestNG()
+}
